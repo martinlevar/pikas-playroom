@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Vista publica en vivo del Torneo Black Dog Arcade Night."
+    />
+    <title>Torneo Black Dog Live</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell viewer-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Torneo Black Dog</p>
+          <h1>Live Board</h1>
+        </div>
+        <div class="topbar-actions">
+          <a id="viewer-challenge-link" class="play-link" href="./challenge.html">Jugar desafio</a>
+          <a class="ghost-link" href="./index.html">Inicio</a>
+          <a class="ghost-link" href="./profile.html">Mi perfil</a>
+          <div id="sync-badge" class="live-badge" aria-label="Estado de la competencia">
+            <span></span>
+            <strong id="sync-label">Conectando</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="score-hero" aria-label="Resumen del torneo">
+        <div id="arcade-screen" class="arcade-screen arcade-mode-ship" aria-hidden="true">
+          <div class="screen-grid"></div>
+          <div class="scanlines"></div>
+          <div class="starfield"></div>
+          <div class="pixel-orbit orbit-one"></div>
+          <div class="pixel-orbit orbit-two"></div>
+          <div class="pixel-invader invader-one"></div>
+          <div class="pixel-invader invader-two"></div>
+          <div class="pixel-invader invader-three"></div>
+          <div class="race-road"></div>
+          <div class="pixel-ship"></div>
+          <div class="laser laser-one"></div>
+          <div class="laser laser-two"></div>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Tabla general</p>
+          <h2 id="leader-title">Cargando torneo...</h2>
+          <p id="leader-detail">Esperando puntajes en vivo.</p>
+        </div>
+      </section>
+
+      <section class="viewer-grid">
+        <section class="panel leaderboard-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Ranking</p>
+              <h2>Ganador por puntos totales</h2>
+            </div>
+          </div>
+          <div id="leaderboard" class="leaderboard" aria-live="polite"></div>
+        </section>
+
+        <section class="panel matrix-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Detalle</p>
+              <h2>Puntos por juego</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table id="score-table"></table>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel records-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Historico</p>
+            <h2>Records por juego</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="records-table"></table>
+        </div>
+      </section>
+    </main>
+
+    <template id="empty-state-template">
+      <div class="empty-state">
+        <strong>No hay datos todavia.</strong>
+        <span>Cuando carguen puntos desde la mesa oficial, aparecen aca.</span>
+      </div>
+    </template>
+
+    <script src="./config.js" defer></script>
+    <script src="./viewer.js" defer></script>
+  </body>
+</html>

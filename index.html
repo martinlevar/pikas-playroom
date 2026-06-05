@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pikas Playroom: tableros en vivo para torneos arcade, futbol y noches con amigos."
+    />
+    <title>Pikas Playroom</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell home-shell">
+      <header class="playroom-header">
+        <a class="playroom-brand" href="./index.html">
+          <span>Pikas</span>
+          <strong>Playroom</strong>
+        </a>
+        <nav class="playroom-nav" aria-label="Navegacion principal">
+          <a href="#boards">Tableros</a>
+          <button id="open-login-button" type="button" class="primary-button">Login</button>
+        </nav>
+      </header>
+
+      <section class="playroom-hero" aria-label="Pikas Playroom">
+        <div id="arcade-screen" class="arcade-screen arcade-mode-ship playroom-stage" aria-hidden="true">
+          <div class="screen-grid"></div>
+          <div class="scanlines"></div>
+          <div class="starfield"></div>
+          <div class="football-field"></div>
+          <div class="football-ball ball-one"></div>
+          <div class="football-ball ball-two"></div>
+          <div class="pixel-orbit orbit-one"></div>
+          <div class="pixel-orbit orbit-two"></div>
+          <div class="pixel-invader invader-one"></div>
+          <div class="pixel-invader invader-two"></div>
+          <div class="pixel-invader invader-three"></div>
+          <div class="race-road"></div>
+          <div class="pixel-ship"></div>
+          <div class="laser laser-one"></div>
+          <div class="laser laser-two"></div>
+        </div>
+        <div class="playroom-hero-copy">
+          <p class="eyebrow">Arcade, futbol y competencia en vivo</p>
+          <h1>Pikas Playroom</h1>
+          <p>Creá tableros para tus noches de juegos, compartí el link y mirá rankings en tiempo real desde cualquier dispositivo.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#boards">Ver tableros abiertos</a>
+            <button id="hero-login-button" type="button" class="ghost-button">Crear mi tablero</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-it-works" aria-label="Como funciona">
+        <article class="info-card home-help-card">
+          <p class="eyebrow">Como jugar?</p>
+          <h2>Armá una noche, compartí el link y competí en vivo</h2>
+          <p>Todo el flujo está resumido en una guía rápida para creadores, jugadores y viewers.</p>
+          <button id="open-how-button" type="button" class="primary-button">Ver guía</button>
+        </article>
+      </section>
+
+      <section class="panel challenge-panel" aria-label="Juga y desafia">
+        <div class="pikasnoid-cover-wrap" aria-hidden="true">
+          <div class="pikasnoid-cover-label">Pikas Playroom Game Pak</div>
+          <div class="pikasnoid-cover"></div>
+        </div>
+        <div class="challenge-panel-copy">
+          <p class="eyebrow">Juga y desafia</p>
+          <div class="pikasnoid-logo pikasnoid-logo-home" aria-label="Pikasnoid">
+            <span>Pikas</span><span>noid</span>
+          </div>
+          <p>Atajá, despejá, meté goles y sobreviví a cada pantalla para subir tu mejor puntaje al ranking oficial.</p>
+          <div class="home-challenge-ranking-head">
+            <div id="home-challenge-ranking" class="home-challenge-leader"></div>
+            <button id="open-challenge-ranking-button" type="button" class="ghost-button">Ver ranking completo</button>
+          </div>
+        </div>
+        <a id="home-challenge-link" class="play-link" href="./challenge.html?ranking=black-dog">JUGAR DESAFIO</a>
+      </section>
+
+      <section id="boards" class="panel public-boards-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Tableros abiertos</p>
+            <h2>Partidas en vivo</h2>
+            <p id="boards-status" class="auth-status">Cargando tableros públicos...</p>
+          </div>
+        </div>
+        <div id="public-boards-list" class="boards-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <dialog id="login-dialog" class="score-dialog login-dialog">
+      <div class="score-dialog-panel">
+        <div class="dialog-title-row">
+          <div>
+            <p class="eyebrow">Cuenta</p>
+            <h2 id="home-auth-title">Ingresar</h2>
+          </div>
+          <button id="close-login-button" type="button" class="dialog-close-button" aria-label="Cerrar">x</button>
+        </div>
+        <p id="home-auth-status" class="auth-status">Crea usuario o inicia sesión para crear tableros.</p>
+
+        <form id="home-auth-form" class="modal-auth-form">
+          <label class="field" for="home-auth-name">
+            <span>Nombre</span>
+            <input id="home-auth-name" type="text" autocomplete="name" placeholder="Martin" />
+          </label>
+          <label class="field" for="home-auth-email">
+            <span>Email</span>
+            <input id="home-auth-email" type="email" autocomplete="email" placeholder="martin@email.com" />
+          </label>
+          <label class="field" for="home-auth-password">
+            <span>Password</span>
+            <input id="home-auth-password" type="password" autocomplete="current-password" placeholder="Minimo 6 caracteres" />
+          </label>
+          <div class="auth-actions">
+            <button type="submit" class="primary-button">Ingresar</button>
+            <button id="home-signup-button" type="button" class="ghost-button">Crear usuario</button>
+            <button id="home-logout-button" type="button" class="ghost-button" hidden>Cerrar sesion</button>
+          </div>
+        </form>
+
+      </div>
+    </dialog>
+
+    <dialog id="challenge-ranking-dialog" class="score-dialog">
+      <div class="score-dialog-panel">
+        <div class="dialog-title-row">
+          <div>
+            <p class="eyebrow">Pikasnoid</p>
+            <h2>Ranking completo</h2>
+          </div>
+          <button id="close-challenge-ranking-button" type="button" class="dialog-close-button" aria-label="Cerrar">x</button>
+        </div>
+        <div id="challenge-ranking-full-list" class="challenge-ranking-list"></div>
+      </div>
+    </dialog>
+
+    <dialog id="home-betkeeper-dialog" class="score-dialog">
+      <div class="score-dialog-panel">
+        <div class="dialog-title-row">
+          <div>
+            <p class="eyebrow">BetKeeper</p>
+            <h2 id="home-betkeeper-title">Reglas del tablero</h2>
+          </div>
+          <button id="close-home-betkeeper-button" type="button" class="dialog-close-button" aria-label="Cerrar">x</button>
+        </div>
+        <div id="home-betkeeper-content" class="betkeeper-public-rules"></div>
+      </div>
+    </dialog>
+
+    <dialog id="how-dialog" class="score-dialog">
+      <div class="score-dialog-panel">
+        <div class="dialog-title-row">
+          <div>
+            <p class="eyebrow">Guia rapida</p>
+            <h2>Como jugar?</h2>
+          </div>
+          <button id="close-how-button" type="button" class="dialog-close-button" aria-label="Cerrar">x</button>
+        </div>
+        <div class="how-modal-list">
+          <article>
+            <strong>Crear</strong>
+            <span>Entrá con usuario, armá un tablero público o privado y compartí el link.</span>
+          </article>
+          <article>
+            <strong>Cargar</strong>
+            <span>En la mesa oficial se anotan jugadores, juegos y puntajes en vivo.</span>
+          </article>
+          <article>
+            <strong>Jugar</strong>
+            <span>Desde Pikasnoid competís por puntos oficiales dentro del ranking.</span>
+          </article>
+          <article>
+            <strong>Mirar</strong>
+            <span>Los viewers siguen rankings y récords sin poder modificar datos.</span>
+          </article>
+        </div>
+      </div>
+    </dialog>
+
+    <template id="empty-state-template">
+      <div class="empty-state">
+        <strong>No hay tableros públicos todavía.</strong>
+        <span>Cuando alguien cree uno público, aparece acá.</span>
+      </div>
+    </template>
+
+    <script src="./config.js" defer></script>
+    <script src="./home.js" defer></script>
+  </body>
+</html>

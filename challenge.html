@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Desafio arcade online de Pikas Playroom con ranking oficial en vivo."
+    />
+    <title>Desafio Pikasnoid</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell challenge-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Juga y desafia</p>
+          <div class="pikasnoid-logo" aria-label="Pikasnoid">
+            <span>Pikas</span><span>noid</span>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a class="ghost-link" href="./index.html">Inicio</a>
+          <a id="challenge-profile-link" class="primary-link" href="./profile.html" hidden>Mi perfil</a>
+          <button id="challenge-header-login-button" type="button" class="primary-button">Login</button>
+        </div>
+      </header>
+
+      <section class="challenge-layout">
+        <section class="panel challenge-game-panel">
+          <div class="challenge-hud">
+            <div>
+              <span>Puntos</span>
+              <strong id="challenge-score">0</strong>
+            </div>
+            <div>
+              <span>Marcador</span>
+              <strong id="challenge-level">1</strong>
+            </div>
+            <div>
+              <span>Tiempo</span>
+              <strong id="challenge-lives">45</strong>
+            </div>
+          </div>
+
+          <div class="challenge-canvas-wrap">
+            <canvas id="challenge-canvas" width="560" height="760" aria-label="Pikasnoid"></canvas>
+            <div id="challenge-overlay" class="challenge-overlay">
+              <div class="pikasnoid-logo pikasnoid-logo-small" aria-label="Pikasnoid">
+                <span>Pikas</span><span>noid</span>
+              </div>
+              <h2 id="challenge-overlay-title">Defendé y atacá</h2>
+              <p id="challenge-overlay-detail">Rebotá la pelota con tu arquero, meté goles dentro del arco rival y frená a los atacantes antes de que lleguen a tu arco.</p>
+              <button id="challenge-start-button" type="button" class="primary-button">Empezar desafio</button>
+            </div>
+          </div>
+
+          <div id="challenge-touch-zone" class="challenge-touch-zone" role="application" aria-label="Zona tactil para mover la paleta">
+            <span>Mové tu dedo por acá</span>
+          </div>
+
+          <p class="challenge-tip">Cada pantalla suma una pelota: solo la blanca hace goles, las amarillas son despejes. Después del nivel 3 aparece un bonus de 45 segundos.</p>
+        </section>
+
+        <aside class="panel challenge-side-panel">
+          <div>
+            <p class="eyebrow">Jugador</p>
+            <h2>Guardar en ranking</h2>
+            <p id="challenge-status" class="auth-status">Inicia sesion desde Pikas Playroom para guardar tu puntaje oficial.</p>
+          </div>
+
+          <label class="field" for="challenge-player-name">
+            <span>Nombre para el ranking</span>
+            <input id="challenge-player-name" type="text" autocomplete="name" placeholder="Martin" />
+          </label>
+
+          <button id="challenge-save-button" type="button" class="primary-button" disabled>Guardar puntaje</button>
+          <button id="challenge-login-button" type="button" class="ghost-button">Ingresar o crear usuario</button>
+
+          <div class="public-link-box">
+            <span>Juego oficial</span>
+            <strong>Pikasnoid</strong>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <template id="challenge-empty-template">
+      <div class="empty-state">
+        <strong>Todavia no hay campañas.</strong>
+        <span>El primer valiente inaugura el ranking.</span>
+      </div>
+    </template>
+
+    <dialog id="challenge-login-dialog" class="score-dialog login-dialog">
+      <div class="score-dialog-panel">
+        <div class="dialog-title-row">
+          <div>
+            <p class="eyebrow">Cuenta</p>
+            <h2>Guardar puntaje</h2>
+          </div>
+          <button id="close-challenge-login-button" type="button" class="dialog-close-button" aria-label="Cerrar">x</button>
+        </div>
+        <p id="challenge-auth-status" class="auth-status">Ingresa o crea usuario para guardar tu puntaje oficial.</p>
+        <form id="challenge-auth-form" class="modal-auth-form">
+          <label class="field" for="challenge-auth-name">
+            <span>Nombre</span>
+            <input id="challenge-auth-name" type="text" autocomplete="name" placeholder="Martin" />
+          </label>
+          <label class="field" for="challenge-auth-email">
+            <span>Email</span>
+            <input id="challenge-auth-email" type="email" autocomplete="email" placeholder="martin@email.com" />
+          </label>
+          <label class="field" for="challenge-auth-password">
+            <span>Password</span>
+            <input id="challenge-auth-password" type="password" autocomplete="current-password" placeholder="Minimo 6 caracteres" />
+          </label>
+          <div class="auth-actions">
+            <button type="submit" class="primary-button">Ingresar</button>
+            <button id="challenge-signup-button" type="button" class="ghost-button">Crear usuario</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="./config.js" defer></script>
+    <script src="./challenge.js" defer></script>
+  </body>
+</html>

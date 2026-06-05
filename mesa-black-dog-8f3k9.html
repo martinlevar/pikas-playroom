@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Scoreboard arcade para cargar jugadores, juegos y puntajes en una noche de competencia."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Arcade Night Scoreboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Torneo Black Dog</p>
+          <h1>Arcade Night</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="ghost-link" href="./profile.html">Mi perfil</a>
+          <a id="game-challenge-link" class="play-link" href="./challenge.html">Jugar desafio</a>
+          <a id="game-viewer-link" class="primary-link" href="./viewer.html">Ver en vivo</a>
+          <a class="ghost-link" href="./index.html">Inicio</a>
+          <div id="sync-badge" class="live-badge" aria-label="Estado de la competencia">
+            <span></span>
+            <strong id="sync-label">Local</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="score-hero" aria-label="Resumen del torneo">
+        <div id="arcade-screen" class="arcade-screen arcade-mode-ship" aria-hidden="true">
+          <div class="screen-grid"></div>
+          <div class="scanlines"></div>
+          <div class="starfield"></div>
+          <div class="pixel-orbit orbit-one"></div>
+          <div class="pixel-orbit orbit-two"></div>
+          <div class="pixel-invader invader-one"></div>
+          <div class="pixel-invader invader-two"></div>
+          <div class="pixel-invader invader-three"></div>
+          <div class="race-road"></div>
+          <div class="pixel-ship"></div>
+          <div class="laser laser-one"></div>
+          <div class="laser laser-two"></div>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Tabla general</p>
+          <h2 id="leader-title">Cargando torneo...</h2>
+          <p id="leader-detail">Agrega jugadores y juegos para empezar.</p>
+          <button id="edit-board-button" type="button" class="ghost-button" hidden>Editar tablero</button>
+        </div>
+      </section>
+
+      <section id="play" class="quick-actions" aria-label="Acciones principales">
+        <form id="player-form" class="panel control-panel">
+          <div>
+            <p class="eyebrow">Jugadores</p>
+            <h2>Anotar quien juega</h2>
+          </div>
+          <label class="field" for="player-name">
+            <span>Nombre</span>
+            <input id="player-name" type="text" autocomplete="off" placeholder="Martin" />
+          </label>
+          <button type="submit" class="primary-button">Agregar jugador</button>
+          <div id="players-live-list" class="live-chip-list" aria-label="Jugadores cargados"></div>
+        </form>
+
+        <form id="game-form" class="panel control-panel">
+          <div>
+            <p class="eyebrow">Arcades</p>
+            <h2>Crear un juego</h2>
+          </div>
+          <label class="field" for="game-name">
+            <span>Juego</span>
+            <input id="game-name" type="text" autocomplete="off" placeholder="Pac-Man" />
+          </label>
+          <button type="submit" class="primary-button">Agregar juego</button>
+          <div id="games-live-list" class="live-chip-list" aria-label="Juegos cargados"></div>
+        </form>
+
+        <form id="score-form" class="panel control-panel score-form">
+          <div>
+            <p class="eyebrow">Puntajes</p>
+            <h2>Cargar resultado</h2>
+          </div>
+          <label class="field" for="score-player">
+            <span>Jugador</span>
+            <select id="score-player"></select>
+          </label>
+          <label class="field" for="score-game">
+            <span>Juego</span>
+            <select id="score-game"></select>
+          </label>
+          <label class="field" for="score-value">
+            <span>Puntos</span>
+            <input id="score-value" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="4345" />
+          </label>
+          <button type="submit" class="primary-button">Guardar puntos</button>
+        </form>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel leaderboard-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Ranking</p>
+              <h2>Ganador por puntos totales</h2>
+            </div>
+            <div class="tournament-actions">
+              <button id="finish-button" type="button" class="finish-button">Terminar torneo</button>
+              <button id="reset-button" type="button" class="ghost-button">Reiniciar noche</button>
+            </div>
+          </div>
+          <div id="leaderboard" class="leaderboard" aria-live="polite"></div>
+        </section>
+
+        <section class="panel matrix-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Detalle</p>
+              <h2>Puntos por juego</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table id="score-table"></table>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel roster-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Setup</p>
+            <h2>Participantes y juegos</h2>
+          </div>
+        </div>
+        <div class="list-grid">
+          <div>
+            <h3>Jugadores</h3>
+            <div id="players-list" class="chip-list"></div>
+          </div>
+          <div>
+            <h3>Juegos</h3>
+            <div id="games-list" class="chip-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel records-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Historico</p>
+            <h2>Records por juego</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="records-table"></table>
+        </div>
+      </section>
+    </main>
+
+    <template id="empty-state-template">
+      <div class="empty-state">
+        <strong>No hay datos todavia.</strong>
+        <span>Agrega jugadores, juegos y puntajes para armar la tabla.</span>
+      </div>
+    </template>
+
+    <dialog id="overwrite-dialog" class="score-dialog">
+      <form method="dialog" class="score-dialog-panel">
+        <p class="eyebrow">Puntaje existente</p>
+        <h2 id="overwrite-title">Ese puntaje ya fue cargado</h2>
+        <p id="overwrite-message"></p>
+        <div class="dialog-actions">
+          <button id="keep-score-button" type="button" class="ghost-button">Dejar el puntaje actual</button>
+          <button id="change-score-button" type="button" class="primary-button">Cambiar puntaje</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="board-settings-dialog" class="score-dialog login-dialog">
+      <div class="score-dialog-panel">
+        <div class="dialog-title-row">
+          <div>
+            <p class="eyebrow">Tablero</p>
+            <h2>Editar tablero</h2>
+          </div>
+          <button id="close-board-settings" type="button" class="dialog-close-button" aria-label="Cerrar">x</button>
+        </div>
+
+        <form id="board-settings-form" class="modal-auth-form">
+          <label class="field" for="board-name">
+            <span>Nombre</span>
+            <input id="board-name" type="text" autocomplete="off" />
+          </label>
+          <label class="field" for="board-visibility">
+            <span>Visibilidad</span>
+            <select id="board-visibility">
+              <option value="public">Publico</option>
+              <option value="private">Privado con link</option>
+            </select>
+          </label>
+          <label class="field" for="board-cover">
+            <span>Foto del tablero</span>
+            <input id="board-cover" type="file" accept="image/*" />
+          </label>
+          <button type="submit" class="primary-button">Guardar cambios</button>
+        </form>
+
+        <div class="public-link-box">
+          <span>Link publico</span>
+          <a id="settings-public-link" href="./viewer.html" target="_blank" rel="noreferrer">Abrir viewer</a>
+        </div>
+
+        <form id="settings-editor-form" class="editor-form">
+          <label class="field" for="settings-editor-email">
+            <span>Administrador por email</span>
+            <input id="settings-editor-email" type="email" autocomplete="email" placeholder="amigo@email.com" />
+          </label>
+          <button type="submit" class="ghost-button">Agregar admin</button>
+        </form>
+        <p id="settings-status" class="auth-status"></p>
+      </div>
+    </dialog>
+
+    <script src="./config.js" defer></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

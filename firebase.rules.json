@@ -1,0 +1,59 @@
+{
+  "rules": {
+    "rankings": {
+      ".read": true,
+      "$rankingId": {
+        ".read": true,
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (!newData.exists() && data.child('ownerUid').val() === auth.uid) || data.child('ownerUid').val() === auth.uid || data.child('editors').child(auth.uid).val() === true)",
+        "ownerUid": {
+          ".write": "!data.exists() && auth != null && newData.val() === auth.uid"
+        },
+        "visibility": {
+          ".validate": "newData.val() === 'public' || newData.val() === 'private'"
+        },
+        "editors": {
+          "$uid": {
+            ".write": "auth != null && (root.child('rankings').child($rankingId).child('ownerUid').val() === auth.uid || $uid === auth.uid)"
+          }
+        },
+        "invitedEditors": {
+          "$emailKey": {
+            ".read": "auth != null",
+            ".write": "auth != null && root.child('rankings').child($rankingId).child('ownerUid').val() === auth.uid",
+            ".validate": "newData.hasChildren(['email', 'invitedBy', 'createdAt'])"
+          }
+        },
+        "state": {
+          ".validate": "newData.hasChild('finished')"
+        },
+        "history": {
+          ".read": true
+        },
+        "challengeScores": {
+          ".read": true,
+          "$challengeId": {
+            "$uid": {
+              ".write": "auth != null && auth.uid === $uid",
+              ".validate": "newData.hasChildren(['player', 'points', 'game', 'updatedAt']) && newData.child('player').isString() && newData.child('game').isString() && newData.child('points').isNumber()"
+            }
+          }
+        }
+      }
+    },
+    "rankingAccessRequests": {
+      "$rankingId": {
+        "$uid": {
+          ".read": "auth != null && (auth.uid === $uid || root.child('rankings').child($rankingId).child('ownerUid').val() === auth.uid)",
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "newData.hasChildren(['email', 'displayName', 'createdAt'])"
+        }
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}
