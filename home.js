@@ -125,7 +125,6 @@ function renderChallengeRanking() {
   elements.challengeRanking.innerHTML = `
     <span>Líder actual</span>
     <strong>${escapeHtml(leader.player)}</strong>
-    <em>${formatScore(leader.points)} pts</em>
   `;
 }
 
